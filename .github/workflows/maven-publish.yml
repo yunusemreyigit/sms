@@ -45,7 +45,14 @@ jobs:
          push: true
          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sms:latest
 
-      - name: ftp deploy
+  Fast-FTP-Action:
+    name: Fast FTP Action
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Fast FTP Action
         uses: anvil-solutions/Fast-FTP-Action@2.1.0
         with:
           server: ec2-13-49-229-231.eu-north-1.compute.amazonaws.com
