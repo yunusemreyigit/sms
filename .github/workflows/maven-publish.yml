@@ -46,7 +46,10 @@ jobs:
          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sms:latest
 
       - name: ftp deploy
-        uses: Atyn/Simple-SFTP
+        uses: anvil-solutions/Fast-FTP-Action@2.1.0
         with:
-          url: sftp://ec2-user:${{ secrets.FPT_PWD }}@ec2-13-49-229-231.eu-north-1.compute.amazonaws.com
-          local-directory: ./target/SWE304-0.0.1-SNAPSHOT.jar
+          server: ec2-13-49-229-231.eu-north-1.compute.amazonaws.com
+          username: ec2-user
+          password: ${{ secrets.FTP_PWD }}
+
+
