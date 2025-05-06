@@ -60,7 +60,7 @@ jobs:
           # Public SSH key of host
           #host_public_key: # default is 
           # Local path to sync (default: .)
-          local: ./target/SWE304-0.0.1-SNAPSHOT.jar
+          local: .
                 
 
 
