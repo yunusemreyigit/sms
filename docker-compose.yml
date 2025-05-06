@@ -1,0 +1,32 @@
+version: "3"
+services:
+  db:
+    container_name: 'db'
+    image: 'postgres'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'sms'
+    networks:
+      - 'my-network'
+
+  app:
+    container_name: 'swe304'
+    image: 'yunusemreyigit/sms'
+    build: .
+    ports:
+      - '8080:8080'
+    environment:
+      DB_HOST: 'db'
+      DB_USER: 'postgres'
+      DB_PASSWORD: 'postgres'
+      DB_PORT: '5432'
+      DB_NAME: 'sms'
+    networks:
+      - 'my-network'
+    depends_on:
+      - 'db'
+networks:
+  my-network:
+    driver: bridge

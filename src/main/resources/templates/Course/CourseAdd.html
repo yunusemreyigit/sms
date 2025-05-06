@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Yeni Ders Ekle</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+  </head>
+</head>
+<body>
+<h1>Yeni Ders Ekle</h1>
+<form th:action="@{/courses/add}" th:object="${course}" method="post">
+  <label>Ders Adı:</label>
+  <input type="text" th:field="*{name}" required><br>
+
+  <label>Ders Kodu:</label>
+  <input type="text" th:field="*{code}" required><br>
+
+  <label>Kredi:</label>
+  <input type="number" th:field="*{credit}" required><br>
+
+  <button type="submit">Ekle</button>
+  <a href="/courses">İptal</a>
+</form>
+
+<a href="/" class="btn">Ana Sayfaya Dön</a>
+
+</body>
+</html>

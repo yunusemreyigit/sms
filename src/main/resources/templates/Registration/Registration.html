@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Listesi</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Kayıt Listesi</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{/registrations(page=0, size=${size}, sortBy='id', direction=${direction == 'asc' ? 'desc' : 'asc'})}">Id</a>
+            </th>
+            <th>
+                <a th:href="@{/registrations(page=0, size=${size}, sortBy='student.firstName', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+                    Öğrenci <span th:if="${sortBy == 'student.firstName'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{/registrations(page=0, size=${size}, sortBy='course.name', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+                    Ders <span th:if="${sortBy == 'course.name'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+                </a>
+            </th>
+            <th>İşlemler</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="registration, index : ${registrations}">
+            <td th:text="${registration.registration_id}"></td>
+            <td th:text="${registration.student.firstName} + ' ' + ${registration.student.lastName}"></td>
+            <td th:text="${registration.course.name}"></td>
+            <td>
+                <a th:href="@{/registrations/update/{id}(id=${registration.registration_id})}" class="btn btn-edit">Düzenle</a>
+                <a th:href="@{/registrations/delete/{id}(id=${registration.registration_id})}" class="btn btn-delete"
+                   onclick="return confirm('Kaydı silmek istediğinize emin misiniz?')">Sil</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <!-- Sayfalama Kontrolleri -->
+    <div class="pagination">
+        <a th:if="${currentPage > 0}" th:href="@{/registrations(page=${currentPage - 1}, size=${size}, sortBy=${sortBy}, direction=${direction})}" class="btn">Önceki</a>
+
+        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:href="@{/registrations(page=${i}, size=${size}, sortBy=${sortBy}, direction=${direction})}"
+               th:text="${i + 1}" th:classappend="${i == currentPage} ? 'active' : ''"></a>
+        </span>
+
+        <a th:if="${currentPage < totalPages - 1}" th:href="@{/registrations(page=${currentPage + 1}, size=${size}, sortBy=${sortBy}, direction=${direction})}" class="btn">Sonraki</a>
+    </div>
+
+    <p>Sayfa <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span></p>
+
+    <a href="/registrations/add" class="btn btn-add">Yeni Kayıt Ekle</a>
+    <a href="/" class="btn">Ana Sayfaya Dön</a>
+</div>
+</body>
+</html>

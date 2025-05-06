@@ -1,0 +1,83 @@
+<!-- Course.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ders Yönetimi</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+
+<body>
+
+<div class="container">
+  <h1>Ders Listesi</h1>
+  <a href="/courses/add" class="btn btn-add">Yeni Ders Ekle</a>
+
+  <table>
+    <thead>
+    <tr>
+      <th>
+        <a th:href="@{/courses(page=0, size=${size}, sortBy='id', direction=${direction == 'asc' ? 'desc' : 'asc'})}">Id</a>
+      </th>
+      <th>
+        <a th:href="@{/courses(page=0, size=${size}, sortBy='name', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+          Ders Adı <span th:if="${sortBy == 'name'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+        </a>
+      </th>
+      <th>
+        <a th:href="@{/courses(page=0, size=${size}, sortBy='code', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+          Ders Kodu <span th:if="${sortBy == 'code'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+        </a>
+      </th>
+      <th>
+        <a th:href="@{/courses(page=0, size=${size}, sortBy='credit', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+          Ders Kredisi <span th:if="${sortBy == 'credit'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+        </a>
+      </th>
+      <th>İşlemler</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="course, index : ${courses}">
+      <td th:text="${course.id}"></td>
+      <td th:text="${course.name}"></td>
+      <td th:text="${course.code}"></td>
+      <td th:text="${course.credit}"></td>
+      <td>
+        <a th:href="@{/courses/update/{id}(id=${course.id})}" class="btn btn-edit">Düzenle</a>
+        <a th:href="@{/courses/delete/{id}(id=${course.id})}" class="btn btn-delete"
+           onclick="return confirm('Ders kaydını silmek istediğinize emin misiniz?')">Sil</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<!-- 📌 Sayfalama Kontrolleri -->
+<div class="pagination">
+  <a th:if="${currentPage > 0}"
+     th:href="@{/courses(page=${currentPage - 1}, size=${size}, sortBy=${sortBy}, direction=${direction})}" class="btn">
+    Önceki
+  </a>
+
+  <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:href="@{/courses(page=${i}, size=${size}, sortBy=${sortBy}, direction=${direction})}"
+               th:text="${i + 1}"
+               th:classappend="${i == currentPage} ? 'active' : ''">
+            </a>
+        </span>
+
+  <a th:if="${currentPage < totalPages - 1}"
+     th:href="@{/courses(page=${currentPage + 1}, size=${size}, sortBy=${sortBy}, direction=${direction})}" class="btn">
+    Sonraki
+  </a>
+</div>
+
+<a href="/" class="btn">Ana Sayfaya Dön</a>
+
+
+</body>
+</html>

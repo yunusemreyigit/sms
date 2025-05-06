@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Kayıt Ekle</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Yeni Kayıt Ekle</h1>
+    <form action="/registrations" method="post">
+        <label for="student">Öğrenci Seç</label>
+        <select name="student" id="student">
+            <option th:each="student : ${students}"
+                    th:value="${student.id}"
+                    th:text="${student.firstName} + ' ' + ${student.lastName}">
+            </option>
+        </select>
+
+        <label for="course">Ders Seç</label>
+        <select name="course" id="course">
+            <option th:each="course : ${courses}"
+                    th:value="${course.id}"
+                    th:text="${course.name}">
+            </option>
+        </select>
+
+        <button type="submit">Kaydet</button>
+    </form>
+    <a href="/registrations" class="btn">Kayıt Listesine Dön</a>
+</div>
+</body>
+</html>

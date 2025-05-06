@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kayıt Güncelle</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+  <h1>Kayıt Güncelle</h1>
+  <form th:action="@{/registrations/update/{id}(id=${registration.registration_id})}" method="post">
+    <input type="hidden" name="id" th:value="${registration.registration_id}" />
+
+    <label for="student">Öğrenci Seç</label>
+    <select name="student" id="student">
+      <option th:each="student : ${students}"
+              th:value="${student.id}"
+              th:text="${student.firstName} + ' ' + ${student.lastName}"
+              th:selected="${student.id == registration.student.id}">
+      </option>
+    </select>
+
+    <label for="course">Ders Seç</label>
+    <select name="course" id="course">
+      <option th:each="course : ${courses}"
+              th:value="${course.id}"
+              th:text="${course.name}"
+              th:selected="${course.id == registration.course.id}">
+      </option>
+    </select>
+
+    <button type="submit">Güncelle</button>
+  </form>
+  <a href="/registrations" class="btn">Kayıt Listesine Dön</a>
+</div>
+</body>
+</html>

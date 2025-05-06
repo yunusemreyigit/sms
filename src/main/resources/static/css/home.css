@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f9;
+    height: 100vh; /* Sayfanın tamamını kaplasın */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+/* 📌 Kutuların içinde olduğu ana div */
+.container {
+    width: 90%;
+    height: 50vh; /* Yükseklik %50 olacak şekilde ayarla */
+    display: flex; /* YAN YANA sıralama için flex kullan */
+    flex-direction: row;
+    justify-content: center; /* Ortaya hizalama */
+    align-items: center;
+    gap: 30px; /* Butonlar arası boşluk */
+}
+
+/* 📌 Buton kutuları */
+.card {
+    width: 200px;
+    height: 200px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 📌 Butonların üzerine gelince hareket ve gölge efekti */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 📌 ÖĞRENCİLER Butonu */
+.card-student {
+    background-color: #28a745;
+}
+
+.card-student:hover {
+    background-color: #1e7e34;
+}
+
+/* 📌 DERSLER Butonu */
+.card-course {
+    background-color: #ffc107;
+    color: black;
+}
+
+.card-course:hover {
+    background-color: #d39e00;
+}
+
+/* 📌 KAYIT Butonu */
+.card-registration {
+    background-color: #dc3545;
+}
+
+.card-registration:hover {
+    background-color: #bd2130;
+}

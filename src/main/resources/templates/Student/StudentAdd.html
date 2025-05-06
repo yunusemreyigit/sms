@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Yeni Öğrenci Ekle</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Yeni Öğrenci Ekle</h1>
+    <form action="#" th:action="@{/students/add}" th:object="${student}" method="post">
+        <label for="firstName">Ad:</label>
+        <input type="text" id="firstName" th:field="*{firstName}" required>
+
+        <label for="lastName">Soyad:</label>
+        <input type="text" id="lastName" th:field="*{lastName}" required>
+
+        <label for="studentNumber">Öğrenci No:</label>
+        <input type="text" id="studentNumber" th:field="*{studentNumber}" required>
+
+        <label for="grade">Sınıf:</label>
+        <input type="text" id="grade" th:field="*{grade}" required>
+
+        <label for="birthDate">Doğum Tarihi:</label>
+        <input type="date" id="birthDate" th:field="*{birthDate}" required>
+
+        <label for="address">Adres:</label>
+        <input type="text" id="address" th:field="*{address}" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" required>
+
+        <label for="phoneNumber">Telefon:</label>
+        <input type="text" id="phoneNumber" th:field="*{phoneNumber}" required>
+
+        <label for="identityNumber">Kimlik No:</label>
+        <input type="text" id="identityNumber" th:field="*{identityNumber}" required>
+
+        <label for="gender">Cinsiyet:</label>
+        <select id="gender" th:field="*{gender}" required>
+            <option th:each="gender : ${T(org.example.swe304.Enums.Gender).values()}"
+                    th:value="${gender}"
+                    th:text="${gender}">Cinsiyet</option>
+        </select>
+
+        <button type="submit" class="btn">Kaydet</button>
+    </form>
+    <a href="/students" class="btn">Geri Dön</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Öğrenci Listesi</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Öğrenci Listesi</h1>
+    <a href="/students/add" class="btn btn-add">Yeni Öğrenci Ekle</a>
+
+    <!-- 📌 Sayfa boyutu seçme -->
+    <form method="get" action="/students">
+        <label for="size">Sayfa Boyutu:</label>
+        <select id="size" name="size" onchange="this.form.submit()">
+            <option th:selected="${size == 5}" value="5">5</option>
+            <option th:selected="${size == 10}" value="10">10</option>
+            <option th:selected="${size == 20}" value="20">20</option>
+        </select>
+        <input type="hidden" name="page" th:value="${currentPage}">
+        <input type="hidden" name="sortBy" th:value="${sortBy}">
+        <input type="hidden" name="direction" th:value="${direction}">
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+
+            <th>
+                <a th:href="@{/students(page=0, size=${size}, sortBy='firstName', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+                    Ad <span th:if="${sortBy == 'firstName'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{/students(page=0, size=${size}, sortBy='lastName', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+                    Soyad <span th:if="${sortBy == 'lastName'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{/students(page=0, size=${size}, sortBy='studentNumber', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+                    Öğrenci No <span th:if="${sortBy == 'studentNumber'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{/students(page=0, size=${size}, sortBy='grade', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+                    Sınıf <span th:if="${sortBy == 'grade'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{/students(page=0, size=${size}, sortBy='birthDate', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+                    Doğum Tarihi <span th:if="${sortBy == 'birthDate'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{/students(page=0, size=${size}, sortBy='address', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+                    Adres <span th:if="${sortBy == 'address'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{/students(page=0, size=${size}, sortBy='gender', direction=${direction == 'asc' ? 'desc' : 'asc'})}">
+                    Cinsiyet <span th:if="${sortBy == 'gender'}" th:text="${direction == 'asc' ? '⬆' : '⬇'}"></span>
+                </a>
+            </th>
+
+            <th>İşlemler</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.studentNumber}"></td>
+            <td th:text="${student.grade}"></td>
+            <td th:text="${student.birthDate}"></td>
+            <td th:text="${student.address}"></td>
+            <td th:text="${student.gender}"></td>
+
+            <td>
+                <a th:href="@{/students/update/{id}(id=${student.id})}" class="btn btn-edit">Düzenle</a>
+                <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-delete"
+                   onclick="return confirm('Bu öğrenciyi silmek istediğinize emin misiniz?');">Sil</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 📌 Sayfalama Kontrolleri -->
+    <div class="pagination">
+        <a th:if="${currentPage > 0}"
+           th:href="@{/students(page=${currentPage - 1}, size=${size}, sortBy=${sortBy}, direction=${direction})}" class="btn">
+            Önceki
+        </a>
+
+        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:href="@{/students(page=${i}, size=${size}, sortBy=${sortBy}, direction=${direction})}"
+               th:text="${i + 1}"
+               th:classappend="${i == currentPage} ? 'active' : ''">
+            </a>
+        </span>
+
+        <a th:if="${currentPage < totalPages - 1}"
+           th:href="@{/students(page=${currentPage + 1}, size=${size}, sortBy=${sortBy}, direction=${direction})}" class="btn">
+            Sonraki
+        </a>
+    </div>
+
+    <p>Sayfa <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span></p>
+</div>
+
+<a href="/" class="btn">Ana Sayfaya Dön</a>
+
+</body>
+</html>
