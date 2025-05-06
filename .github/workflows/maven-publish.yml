@@ -45,18 +45,22 @@ jobs:
          push: true
          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sms:latest
 
-  Fast-FTP-Action:
-    name: Fast FTP Action
-    runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Fast FTP Action
-        uses: anvil-solutions/Fast-FTP-Action@2.1.0
+      - name: SFTP Sync
+        # You may pin to the exact commit or the version.
+        # uses: swillner/sftp-sync-action@629e1fe7a2db87d0f1da0e15a970b514fe398c09
+        uses: swillner/sftp-sync-action@v1.0
         with:
+          # server
           server: ec2-13-49-229-231.eu-north-1.compute.amazonaws.com
-          username: ec2-user
-          password: ${{ secrets.FTP_PWD }}
+          # user
+          user: ec2-user
+          # Private SSH key for user (include via secrets if possible)
+          user_private_key: ${{ secrets.FTP_PWD }} 
+          # Public SSH key of host
+          #host_public_key: # default is 
+          # Local path to sync (default: .)
+          local: ./target/SWE304-0.0.1-SNAPSHOT.jar
+                
 
 
