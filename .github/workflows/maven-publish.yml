@@ -52,7 +52,7 @@ jobs:
           user_private_key: ${{ secrets.FTP_PWD }}
           # Public SSH key of host
           #host_public_key: # default is
-          local: ../target/SWE304-0.0.1-SNAPSHOT.jar
+          local: ../../target/SWE304-0.0.1-SNAPSHOT.jar
           remote: /home/ec2-user/
 
 
