@@ -41,19 +41,16 @@ jobs:
          push: true
          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sms:latest
 
-      - name: Send The Jar File To The Cloud
-        # You may pin to the exact commit or the version.
-        # uses: swillner/sftp-sync-action@629e1fe7a2db87d0f1da0e15a970b514fe398c09
-        uses: swillner/sftp-sync-action@v1.0
+      - name: SFTP Deploy
+        uses: milanmk/actions-file-deployer@master
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USER }}
-          # Private SSH key for user (include via secrets if possible)
-          user_private_key: ${{ secrets.FTP_PWD }}
-          # Public SSH key of host
-          #host_public_key: # default is
-          local: /home/runner/work/sms/sms/target/SWE304-0.0.1-SNAPSHOT.jar
-          remote: /home/ec2-user/
+          remote-protocol: sftp
+          remote-host: ${{ secrets.FTP_SERVER }}
+          remote-user: ${{ secrets.FTP_USER }}
+          remote-password: ${{ secrets.FTP_PWD }}
+          remote-path: /home/ec2-user
+          remote-port: 22
+          local-path: target/SWE304-0.0.1-SNAPSHOT.jar
 
 
 
