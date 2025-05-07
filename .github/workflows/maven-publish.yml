@@ -50,7 +50,7 @@ jobs:
           remote-password: ${{ secrets.FTP_PWD }}
           remote-path: /home/ec2-user
           remote-port: 22
-          local-path: target/SWE304-0.0.1-SNAPSHOT.jar
+          local-path: target/
 
 
 
