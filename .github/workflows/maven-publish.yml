@@ -41,16 +41,14 @@ jobs:
          push: true
          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sms:latest
 
-      - name: SFTP Deploy
-        uses: milanmk/actions-file-deployer@master
+      - name: File Deploy
+        # You may pin to the exact commit or the version.
+        # uses: buxianshan/fine-sftp-deployer@57d6f88cf28663ccead95df84dc5ce752e2c8327
+        uses: buxianshan/fine-sftp-deployer@v0.1.5
         with:
-          remote-protocol: sftp
-          remote-host: ${{ secrets.FTP_SERVER }}
-          remote-user: ${{ secrets.FTP_USER }}
-          remote-password: ${{ secrets.FTP_PWD }}
-          remote-path: /home/ec2-user
-          remote-port: 22
-          local-path: target/
-
-
-
+          username: ${{ secrets.FTP_USER }}
+          server: ${{ secrets.FTP_SERVER }}
+          ssh_private_key: ${{ secrets.FTP_PWD }}
+          local_path: ./* # default is ./*
+          remote_path: /home/ec2-user
+          clear_remote_path: false
