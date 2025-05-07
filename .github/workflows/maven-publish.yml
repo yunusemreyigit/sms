@@ -41,6 +41,12 @@ jobs:
          push: true
          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sms:latest
 
+      - name: Create file for JAR file
+        run: mkdir jarfile
+
+      - name: Copy JAR file
+        run: cp ./target/SWE304-0.0.1-SNAPSHOT.jar jarfile
+
       - name: File Deploy
         # You may pin to the exact commit or the version.
         # uses: buxianshan/fine-sftp-deployer@57d6f88cf28663ccead95df84dc5ce752e2c8327
@@ -49,6 +55,6 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           server: ${{ secrets.FTP_SERVER }}
           ssh_private_key: ${{ secrets.FTP_PWD }}
-          local_path: ./* # default is ./*
+          local_path: ./jarfile
           remote_path: /home/ec2-user
           clear_remote_path: false
