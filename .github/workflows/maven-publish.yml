@@ -41,11 +41,11 @@ jobs:
          push: true
          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sms:latest
 
-      - name: Create file for JAR file
-        run: mkdir jarfile
-
-      - name: Copy JAR file
-        run: cp ./target/SWE304-0.0.1-SNAPSHOT.jar jarfile
+#      - name: Create file for JAR file
+#        run: mkdir jarfile
+#
+#      - name: Copy JAR file
+#        run: cp ./target/SWE304-0.0.1-SNAPSHOT.jar jarfile
 
       - name: File Deploy
         # You may pin to the exact commit or the version.
@@ -58,3 +58,14 @@ jobs:
           local_path: ./jarfile
           remote_path: /home/ec2-user
           clear_remote_path: false
+
+      - name: File Deploy
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PWD }}
+          port: 22
+          source: "./target/SWE304-0.0.1-SNAPSHOT.jar"
+          target: /home/ec2-user
+          strip_components: 2
