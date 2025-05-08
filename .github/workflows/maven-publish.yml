@@ -47,17 +47,17 @@ jobs:
 #      - name: Copy JAR file
 #        run: cp ./target/SWE304-0.0.1-SNAPSHOT.jar jarfile
 
-      - name: File Deploy
-        # You may pin to the exact commit or the version.
-        # uses: buxianshan/fine-sftp-deployer@57d6f88cf28663ccead95df84dc5ce752e2c8327
-        uses: buxianshan/fine-sftp-deployer@v0.1.5
-        with:
-          username: ${{ secrets.FTP_USER }}
-          server: ${{ secrets.FTP_SERVER }}
-          ssh_private_key: ${{ secrets.FTP_PWD }}
-          local_path: ./jarfile
-          remote_path: /home/ec2-user
-          clear_remote_path: false
+#      - name: File Deploy
+#        # You may pin to the exact commit or the version.
+#        # uses: buxianshan/fine-sftp-deployer@57d6f88cf28663ccead95df84dc5ce752e2c8327
+#        uses: buxianshan/fine-sftp-deployer@v0.1.5
+#        with:
+#          username: ${{ secrets.FTP_USER }}
+#          server: ${{ secrets.FTP_SERVER }}
+#          ssh_private_key: ${{ secrets.FTP_PWD }}
+#          local_path: ./jarfile
+#          remote_path: /home/ec2-user
+#          clear_remote_path: false
 
       - name: File Deploy
         uses: appleboy/scp-action@v1
