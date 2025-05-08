@@ -69,6 +69,8 @@ public class CourseController {
         return "Course/CourseUpdate";
     }
 
+//    sometihsdgs
+
     @PostMapping("/update/{id}")
     public String updateCourse(@PathVariable Long id, @ModelAttribute Course course) {
         Course existingCourse = courseRepository.findById(id)
